@@ -1,6 +1,7 @@
 <% if @statements.any? %>
   <% @statements.each do |statement| %>
     <h2> <%= statement.title %> </h2>
+    <h4> <%= statement.all_tags %> </h4>
   <% end %>
 <% else %>
   No statements yet

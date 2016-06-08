@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608093218) do
+ActiveRecord::Schema.define(version: 20160608110014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,22 @@ ActiveRecord::Schema.define(version: 20160608093218) do
   end
 
   add_index "statements", ["user_id"], name: "index_statements_on_user_id", using: :btree
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "statement_id"
+    t.integer  "tag_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "taggings", ["statement_id"], name: "index_taggings_on_statement_id", using: :btree
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -46,4 +62,6 @@ ActiveRecord::Schema.define(version: 20160608093218) do
   add_index "users", ["user_name"], name: "index_users_on_user_name", unique: true, using: :btree
 
   add_foreign_key "statements", "users"
+  add_foreign_key "taggings", "statements"
+  add_foreign_key "taggings", "tags"
 end
