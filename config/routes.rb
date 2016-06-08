@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
 
-  devise_for :users, :controllers => { registrations: 'registrations' }
+
+  devise_for :users, :controllers => { registrations: 'registrations' },  defaults: {format: :json}
+  resources :statements, shallow: true, defaults: {format: :json} do
+    resources :votes, defaults: {format: :json}
+
+
+  end
+
   root to: "statements#index"
 
-  resources :statements, shallow: true do
-    resources :votes
-  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
