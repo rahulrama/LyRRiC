@@ -20,7 +20,7 @@ class StatementsController < ApplicationController
   private
 
   def statement_params
-    params.require(:statement).permit(:title)
+    params.require(:statement).permit(:title, :all_tags)
   end
 
 end

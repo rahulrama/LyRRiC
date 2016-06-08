@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'user can submit statements' do
+feature 'user can tag statements' do
 
   context 'user signed in and on the homepage' do
 
@@ -14,18 +14,15 @@ feature 'user can submit statements' do
       click_button('Sign up')
     end
 
-    it 'should see the button for creating a new statement' do
-      visit '/'
-      expect(page).to have_link 'New Statement'
-    end
-
-    it 'should be able to submit a new statement' do
+    it 'should be able to submit a new statement and add a tag' do
       visit '/'
       click_link 'New Statement'
       fill_in 'Title', with: 'Donald Trump\'s real family name is Drumpf'
+      fill_in 'statement_all_tags', with: 'US, Politics'
       click_button 'Create Statement'
-      expect(Statement.count).to eq 1
-      expect(page).to have_content 'Donald Trump\'s real family name is Drumpf'
+      expect(Statement.first.tags.count).to eq 2
+      expect(page).to have_content("US")
+      expect(page).to have_content("Politics")
     end
 
   end
