@@ -1,0 +1,7 @@
+<% if @statements.any? %>
+  <% @statements.each do |statement| %>
+    <h2> <%= statement.title %> </h2>
+  <% end %>
+<% else %>
+  No statements yet
+<% end %>
