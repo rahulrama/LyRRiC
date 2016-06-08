@@ -25,6 +25,7 @@ feature 'user can submit statements' do
       fill_in 'Title', with: 'Donald Trump\'s real family name is Drumpf'
       click_button 'Create Statement'
       expect(Statement.count).to eq 1
+      p Statement.first
       expect(page).to have_content 'Donald Trump\'s real family name is Drumpf'
     end
 
